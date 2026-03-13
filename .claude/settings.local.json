@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(sips -g pixelWidth -g pixelHeight ~/Downloads/Odd_title_outro-01.png ~/Downloads/Odd_title_outro-02\\\\\\(Italic\\\\\\).png ~/Downloads/ODD_Don''t_wait.png)",
-      "WebFetch(domain:odd.us)",
-      "Bash(npm run:*)"
-    ]
-  }
-}
