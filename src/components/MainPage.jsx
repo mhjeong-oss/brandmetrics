@@ -4,6 +4,7 @@ import { analyzeMarketing } from '../utils/gemini';
 import { clearBrandConfig } from '../utils/storage';
 import ChatInput from './ChatInput';
 import ResultPanel from './ResultPanel';
+import FollowUpChat from './FollowUpChat';
 
 function getGreeting() {
   const hour = new Date().getHours();
@@ -274,6 +275,7 @@ export default function MainPage({ brandConfig, onResetBrand, onUpdateBrand, onT
         ) : results ? (
           <div className="animate-fade-in">
             <ResultPanel results={results} query={query} brandConfig={brandConfig} />
+            <FollowUpChat results={results} query={query} brandConfig={brandConfig} />
           </div>
         ) : (
           /* Empty state - Claude-style centered layout */

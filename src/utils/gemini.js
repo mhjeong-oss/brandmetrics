@@ -164,3 +164,56 @@ For "ideas": provide exactly 4 derived/expanded planning ideas in Korean. Go BEY
     return extractJSON(result.response.text());
   });
 }
+
+export async function chatWithAnalysis(messages, analysisData, brandConfig, originalQuery) {
+  return withFallback(async (keyIdx, modelName) => {
+    const genAI = getGenAI(keyIdx);
+    const model = genAI.getGenerativeModel({
+      model: modelName,
+      generationConfig: { temperature: 0.7 },
+    });
+
+    const brandContext = [
+      `브랜드명: ${brandConfig.name}`,
+      brandConfig.description ? `브랜드 설명: ${brandConfig.description}` : '',
+    ].filter(Boolean).join('\n');
+
+    const analysisContext = `
+분석한 원본 기획/내용: "${originalQuery}"
+
+분석 결과 요약:
+- 레퍼런스 브랜드: ${analysisData.references?.map(r => r.brandName).join(', ') || '-'}
+- 브랜드 적합성 점수: ${analysisData.brandFit?.score}점 (${analysisData.brandFit?.grade})
+- 브랜드 적합성 총평: ${analysisData.brandFit?.summary || '-'}
+- 핵심 인사이트: ${analysisData.insights?.keyTakeaways?.join(' / ') || '-'}
+- 시장 트렌드: ${analysisData.insights?.marketTrends || '-'}
+- 강점: ${analysisData.brandFit?.strengths?.map(s => s.point).join(', ') || '-'}
+- 개선 과제: ${analysisData.brandFit?.challenges?.map(c => c.point).join(', ') || '-'}
+- 추천 액션: ${analysisData.brandFit?.improvements?.map(i => i.action).join(' / ') || '-'}`;
+
+    const systemPrompt = `당신은 방금 마케팅 분석을 완료한 전략 마케팅 컨설턴트입니다.
+
+${brandContext}
+${analysisContext}
+
+위 분석 결과를 바탕으로 사용자의 추가 질문에 답변하거나 요청을 수행하세요.
+- 답변은 분석 내용을 구체적으로 참조하세요
+- 한국어로 답변하되, 영어 질문에는 영어로 답변하세요
+- 실무에서 바로 활용 가능한 구체적인 조언을 제공하세요`;
+
+    // 이전 대화를 Gemini history 형식으로 변환 (마지막 메시지 제외)
+    const history = [
+      { role: 'user', parts: [{ text: systemPrompt }] },
+      { role: 'model', parts: [{ text: '분석 결과를 확인했습니다. 추가 질문이나 구체적인 방향에 대해 무엇이든 물어보세요!' }] },
+      ...messages.slice(0, -1).map(m => ({
+        role: m.role,
+        parts: [{ text: m.text }],
+      })),
+    ];
+
+    const chat = model.startChat({ history });
+    const lastMessage = messages[messages.length - 1];
+    const result = await chat.sendMessage(lastMessage.text);
+    return result.response.text();
+  });
+}
