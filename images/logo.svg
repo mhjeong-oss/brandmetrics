@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 180" fill="none">
+  <!-- O: thick hollow circle ring -->
+  <circle cx="90" cy="90" r="80" stroke="#0d0d0d" stroke-width="30" fill="none"/>
+
+  <!-- D (first): flat left bar + curved right -->
+  <path d="
+    M 210 10
+    L 210 170
+    L 262 170
+    C 340 170 382 138 382 90
+    C 382 42  340 10  262 10
+    Z
+  " fill="#0d0d0d"/>
+  <!-- inner cutout -->
+  <path d="
+    M 242 42
+    L 242 138
+    L 263 138
+    C 315 138 346 118 346 90
+    C 346 62  315 42  263 42
+    Z
+  " fill="white"/>
+
+  <!-- D (second): same shape shifted -->
+  <path d="
+    M 410 10
+    L 410 170
+    L 462 170
+    C 540 170 582 138 582 90
+    C 582 42  540 10  462 10
+    Z
+  " fill="#0d0d0d"/>
+  <!-- inner cutout -->
+  <path d="
+    M 442 42
+    L 442 138
+    L 463 138
+    C 515 138 546 118 546 90
+    C 546 62  515 42  463 42
+    Z
+  " fill="white"/>
+
+  <!-- period: small square, bottom-right -->
+  <rect x="600" y="138" width="26" height="30" rx="2" fill="#0d0d0d"/>
+</svg>
