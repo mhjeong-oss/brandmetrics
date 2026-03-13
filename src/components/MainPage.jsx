@@ -230,6 +230,12 @@ export default function MainPage({ brandConfig, onResetBrand, onUpdateBrand, onT
     onResetBrand();
   };
 
+  const handleGoHome = () => {
+    setResults(null);
+    setQuery('');
+    setError(null);
+  };
+
   const handleExampleClick = (prompt) => {
     handleSubmit(prompt);
   };
@@ -238,7 +244,7 @@ export default function MainPage({ brandConfig, onResetBrand, onUpdateBrand, onT
     <div className="min-h-screen flex flex-col" style={{ background: 'var(--bg)' }}>
       {/* Header */}
       <header className="flex items-center justify-between px-6 py-4 border-b border-black/[0.05]">
-        <button onClick={onResetBrand} className="font-serif text-lg text-black/90 tracking-tight hover:text-black/60 transition-colors">BrandMetrics</button>
+        <button onClick={handleGoHome} className="font-serif text-lg text-black/90 tracking-tight hover:text-black/60 transition-colors">BrandMetrics</button>
         <div className="flex items-center gap-3">
           <span className="text-xs text-black/30 px-3 py-1.5 rounded-full border border-black/[0.08]">
             {brandConfig?.name}
