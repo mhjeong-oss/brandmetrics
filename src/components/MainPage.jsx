@@ -273,7 +273,7 @@ export default function MainPage({ brandConfig, onResetBrand, onUpdateBrand, onT
             <LoadingState />
           </div>
         ) : results ? (
-          <div className="animate-fade-in pb-20">
+          <div className="animate-fade-in pb-28">
             <ResultPanel results={results} query={query} brandConfig={brandConfig} />
           </div>
         ) : (
