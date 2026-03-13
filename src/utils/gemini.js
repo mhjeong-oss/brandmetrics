@@ -34,9 +34,8 @@ async function withFallback(fn) {
       } catch (err) {
         lastErr = err;
         const msg = err.message || '';
-        const isRetryable = msg.includes('429') || msg.includes('403') || msg.toLowerCase().includes('quota') || msg.includes('404') || msg.toLowerCase().includes('not found');
+        const isRetryable = msg.includes('429') || msg.includes('403') || msg.includes('400') || msg.toLowerCase().includes('quota') || msg.includes('404') || msg.toLowerCase().includes('not found');
         if (isRetryable) continue;
-        throw err;
       }
     }
   }
