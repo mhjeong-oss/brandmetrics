@@ -1,9 +1,9 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
 const API_KEYS = [
-  'AIzaSyCBIDb23AzRnu-5HZais2bbru7kV5L6Xjw',
-  'AIzaSyA9O4DiX2ow1Z9ta6zsesD0JS0MRuWfAug',
-];
+  import.meta.env.VITE_GEMINI_API_KEY,
+  import.meta.env.VITE_GEMINI_API_KEY_2,
+].filter(Boolean);
 
 const MODELS = [
   'gemini-2.5-flash',
