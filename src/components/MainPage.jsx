@@ -273,9 +273,8 @@ export default function MainPage({ brandConfig, onResetBrand, onUpdateBrand, onT
             <LoadingState />
           </div>
         ) : results ? (
-          <div className="animate-fade-in">
+          <div className="animate-fade-in pb-20">
             <ResultPanel results={results} query={query} brandConfig={brandConfig} />
-            <FollowUpChat results={results} query={query} brandConfig={brandConfig} />
           </div>
         ) : (
           /* Empty state - Claude-style centered layout */
@@ -334,18 +333,9 @@ export default function MainPage({ brandConfig, onResetBrand, onUpdateBrand, onT
           </div>
         )}
 
-        {/* Sticky input at bottom when results are shown */}
+        {/* Floating AI chat — shown when results are available */}
         {results && !loading && (
-          <div className="sticky bottom-0 z-10 border-t border-black/[0.05]" style={{ background: 'var(--bg)' }}>
-            <div className="max-w-2xl mx-auto px-6 py-4">
-              <ChatInput
-                onSubmit={handleSubmit}
-                loading={loading}
-                value={query}
-                onChange={setQuery}
-              />
-            </div>
-          </div>
+          <FollowUpChat results={results} query={query} brandConfig={brandConfig} />
         )}
       </main>
 
