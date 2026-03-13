@@ -6,9 +6,9 @@ const API_KEYS = [
 ].filter(Boolean);
 
 const MODELS = [
-  'gemini-2.5-flash',
-  'gemini-2.0-flash-lite-001',
-  'gemini-2.0-flash-001',
+  'gemini-2.0-flash',
+  'gemini-2.0-flash-lite',
+  'gemini-1.5-flash',
 ];
 
 function getGenAI(keyIndex = 0) {
@@ -34,7 +34,7 @@ async function withFallback(fn) {
       } catch (err) {
         lastErr = err;
         const msg = err.message || '';
-        const isRetryable = msg.includes('429') || msg.toLowerCase().includes('quota') || msg.includes('404');
+        const isRetryable = msg.includes('429') || msg.includes('403') || msg.toLowerCase().includes('quota') || msg.includes('404') || msg.toLowerCase().includes('not found');
         if (isRetryable) continue;
         throw err;
       }
