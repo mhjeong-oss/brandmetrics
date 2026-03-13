@@ -166,7 +166,8 @@ export default function FollowUpChat({ results, query, brandConfig }) {
               <button
                 onClick={handleSend}
                 disabled={!input.trim() || loading}
-                className="flex-shrink-0 mb-0.5 w-9 h-9 flex items-center justify-center rounded-xl bg-black/80 text-white hover:bg-black disabled:opacity-20 disabled:cursor-not-allowed transition-all hover:scale-105 active:scale-95"
+                className="flex-shrink-0 mb-0.5 w-9 h-9 flex items-center justify-center rounded-xl text-white disabled:opacity-25 disabled:cursor-not-allowed transition-all hover:scale-105 active:scale-95"
+                style={{ background: 'var(--key)' }}
               >
                 <Send className="w-3.5 h-3.5" />
               </button>
@@ -177,19 +178,23 @@ export default function FollowUpChat({ results, query, brandConfig }) {
 
       {/* 하단 토글 바 — 항상 표시 */}
       <div
-        className="border-t border-black/[0.06]"
-        style={{ background: 'var(--bg)' }}
+        className="border-t"
+        style={{ background: 'var(--bg)', borderColor: 'var(--key)', borderTopWidth: '2px' }}
       >
         <div className="max-w-2xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
           {/* 왼쪽: 아이콘 + 라벨 */}
           <button
             onClick={() => setIsOpen(o => !o)}
-            className="flex items-center gap-2 text-sm text-black/45 hover:text-black/70 transition-colors"
+            className="flex items-center gap-2 text-sm font-medium transition-colors"
+            style={{ color: 'var(--key)' }}
           >
             <MessageCircle className="w-4 h-4" />
             <span>AI에게 질문하기</span>
             {unreadCount > 0 && (
-              <span className="text-[10px] bg-black/[0.07] px-1.5 py-0.5 rounded-full text-black/40 tabular-nums">
+              <span
+                className="text-[10px] px-1.5 py-0.5 rounded-full text-white tabular-nums"
+                style={{ background: 'var(--key)' }}
+              >
                 {unreadCount}
               </span>
             )}
@@ -208,7 +213,8 @@ export default function FollowUpChat({ results, query, brandConfig }) {
             )}
             <button
               onClick={() => setIsOpen(o => !o)}
-              className="p-1.5 rounded-lg hover:bg-black/5 text-black/30 hover:text-black/60 transition-colors"
+              className="p-1.5 rounded-lg hover:bg-black/5 transition-colors"
+              style={{ color: 'var(--key)' }}
             >
               {isOpen
                 ? <ChevronDown className="w-4 h-4" />
